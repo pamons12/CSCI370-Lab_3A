@@ -2,8 +2,11 @@ package com.example.advancedadapter;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -31,6 +34,24 @@ public class MainActivity extends AppCompatActivity {
 
         StudentAdapter studentAdapter = new StudentAdapter(getApplicationContext(),listOfStudents);
         studentListView.setAdapter(studentAdapter);
+
+        studentListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Student s = (Student) adapterView.getItemAtPosition(position);
+                String toastMessage = s.getFirstName()+" "+s.getLastName()+", Major: "+s.getMajor();
+                Toast.makeText(getApplicationContext(),toastMessage,Toast.LENGTH_SHORT).show();
+            }
+        });
+        studentListView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int position, long id) {
+                Student s = (Student) adapterView.getItemAtPosition(position);
+                String toastMessage = s.getFirstName()+" "+s.getLastName()+", Major: "+s.getMajor()+" Long Press";
+                Toast.makeText(getApplicationContext(),toastMessage,Toast.LENGTH_SHORT).show();
+                return true;
+            }
+        });
 
 
     }
